@@ -1,7 +1,7 @@
 import os
 import pdfkit as pdf
 from os.path import join as pjoin
-
+import shutil
 
 def pdf_converter():
     extension = ".html"
@@ -35,15 +35,15 @@ def pdf_converter():
                     # file path
                     f_path = subdir+"/"+file
                     with open(os.path.abspath(f_path)) as f:
-                        pdf.from_file(f, t_fname, options=pdf_option)
+                        x = pdf.from_file(f, t_fname, options=pdf_option)
                         pdf_name.append(t_fname)
                         pdf_destination.append(subdir)
-                        # join dir
-                    path = pjoin(subdir, t_fname)
-                    open(path, "w")
     # delete the original path after moving files to respective directory
-    for temp in pdf_name:
-        os.remove(cwd+"/"+temp)
+    count = len(pdf_destination)
+    i = 0
+    while i < count:
+        shutil.move(cwd+"/"+pdf_name[i], pdf_destination[i]+"/"+pdf_name[i])
+        i += 1
 
 
 pdf_converter()
