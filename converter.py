@@ -1,20 +1,24 @@
 import os
 import pdfkit as pdf
-from os.path import join as pjoin
 import shutil
+
 
 def pdf_converter():
     extension = ".html"
     # output file options
     pdf_option = {
         'page-size': 'Letter',
+        'javascript-delay': 100000,
         'margin-top': '0.25in',
         'margin-right': '0.25in',
         'margin-bottom': '0.25in',
         'margin-left': '0.25in',
         'encoding': "UTF-8",
-        'no-outline': None
+        'no-outline': None,
+        'quiet': ''
     }
+    # if necessary pass css file while converting html to pdf
+    # css = ["sports/css/style.css","sports/css/color.css"]
     # get current working directory
     cwd = os.getcwd()
     # file name and pdf name list
@@ -34,11 +38,12 @@ def pdf_converter():
                     filename.append(file)
                     # file path
                     f_path = subdir+"/"+file
-                    with open(os.path.abspath(f_path)) as f:
-                        x = pdf.from_file(f, t_fname, options=pdf_option)
+                    with open(os.path.abspath(f_path), encoding='utf-8', errors='ignore') as f:
+                        # add css=css if required
+                        pdf.from_file(f, t_fname, options=pdf_option)
                         pdf_name.append(t_fname)
                         pdf_destination.append(subdir)
-    # delete the original path after moving files to respective directory
+    # Move the created pdf file to the respective directory
     count = len(pdf_destination)
     i = 0
     while i < count:
@@ -47,3 +52,41 @@ def pdf_converter():
 
 
 pdf_converter()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
