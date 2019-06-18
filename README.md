@@ -1,5 +1,5 @@
 # pdfconverter using python 3
-hacky way to convert any file(html as of now) to pdf using python libraries and modules
+hacky way to convert plain html file to pdf using python libraries and modules
 
 # required libraries
 # pdf kit
